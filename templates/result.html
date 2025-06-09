@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CropDoc - Result</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #10b981;
+            --accent-color: #f59e0b;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --background: #ffffff;
+            --surface: #f8fafc;
+            --border: #e5e7eb;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 20s infinite linear;
+        }
+
+        .shape:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            left: 10%;
+            border-radius: 50%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 60px;
+            height: 60px;
+            right: 10%;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            animation-delay: 5s;
+        }
+
+        .shape:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            left: 50%;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+
+        /* Header */
+        header {
+            padding: 40px 0;
+            text-align: center;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .logo i {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.2s forwards;
+            background: linear-gradient(135deg, #ffffff, #e0e7ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            font-weight: 300;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.4s forwards;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Main Content */
+        main {
+            background: var(--background);
+            border-radius: 30px 30px 0 0;
+            margin-top: 40px;
+            padding: 60px 0;
+            position: relative;
+            z-index: 1;
+            min-height: 70vh;
+        }
+
+        .result-section {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease-out 0.6s forwards;
+        }
+
+        .result-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .result-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .result-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+        }
+
+        .result-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .result-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .result-content {
+            padding: 40px;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .image-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .result-image {
+            width: 100%;
+            max-width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: var(--shadow-lg);
+            border: 3px solid var(--border);
+            transition: all 0.3s ease;
+            background-color: #f8fafc;
+        }
+
+        .result-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .image-label {
+            margin-top: 15px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        .analysis-section {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .info-card {
+            background: var(--surface);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateX(5px);
+            box-shadow: var(--shadow);
+        }
+
+        .info-card.success {
+            border-left-color: var(--success);
+        }
+
+        .info-card.warning {
+            border-left-color: var(--warning);
+        }
+
+        .info-card.error {
+            border-left-color: var(--error);
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-value {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .crop-value {
+            color: var(--secondary-color);
+        }
+
+        .prediction-value {
+            font-size: 1.4rem;
+        }
+
+        .prediction-value.healthy {
+            color: var(--success);
+        }
+
+        .prediction-value.diseased {
+            color: var(--error);
+        }
+
+        .confidence-value {
+            font-size: 1.3rem;
+        }
+
+        .confidence-value.high {
+            color: var(--success);
+        }
+
+        .confidence-value.medium {
+            color: var(--warning);
+        }
+
+        .confidence-value.low {
+            color: var(--error);
+        }
+
+        /* Progress Bar for Confidence */
+        .confidence-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 2s ease-out;
+            background: linear-gradient(90deg, var(--error), var(--warning), var(--success));
+        }
+
+        /* Description Section */
+        .description-section {
+            background: var(--surface);
+            padding: 30px;
+            margin: 40px -40px -40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .description-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .description-text {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+        }
+
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .action-btn:hover::before {
+            left: 100%;
+        }
+
+        .action-btn.primary {
+            background: linear-gradient(135deg, var(--secondary-color), #059669);
+            color: white;
+        }
+
+        .action-btn.secondary {
+            background: white;
+            color: var(--text-primary);
+            border: 2px solid var(--border);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .action-btn.primary:hover {
+            background: linear-gradient(135deg, #059669, #047857);
+        }
+
+        .action-btn.secondary:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        /* Status Indicator */
+        .status-indicator {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            animation: pulse 2s infinite;
+        }
+
+        .status-indicator.success {
+            background: var(--success);
+        }
+
+        .status-indicator.warning {
+            background: var(--warning);
+        }
+
+        .status-indicator.error {
+            background: var(--error);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-primary);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: white;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.8;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .result-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .result-title {
+                font-size: 1.5rem;
+            }
+
+            .result-content {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            main {
+                padding: 30px 0;
+            }
+
+            .result-header {
+                padding: 20px;
+            }
+
+            .description-section {
+                margin: 20px -20px -20px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-bg">
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-seedling"></i>
+                <h1>CropDoc</h1>
+            </div>
+            <p class="subtitle">Advanced Crop Disease Detection Results</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="result-section">
+                <div class="result-container">
+                    <div class="result-header">
+                        {% if confidence >= 80 %}
+                        <div class="status-indicator success">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        {% elif confidence >= 50 %}
+                        <div class="status-indicator warning">
+                            <i class="fas fa-exclamation"></i>
+                        </div>
+                        {% else %}
+                        <div class="status-indicator error">
+                            <i class="fas fa-times"></i>
+                        </div>
+                        {% endif %}
+                        <h2 class="result-title">
+                            <i class="fas fa-microscope"></i>
+                            Analysis Result
+                        </h2>
+                        <p class="result-subtitle">Your crop has been successfully analyzed</p>
+                    </div>
+
+                    <div class="result-content">
+                        <div class="result-grid">
+                            <div class="image-section">
+                                <img src="{{ url_for('static', filename=image_path|replace('static/', '')) }}" alt="Uploaded Image" class="result-image">
+                                <p class="image-label">Analyzed Crop Image</p>
+                            </div>
+
+                            <div class="analysis-section">
+                                <div class="info-card">
+                                    <div class="info-label">
+                                        <i class="fas fa-seedling"></i>
+                                        Crop Type
+                                    </div>
+                                    <div class="info-value crop-value">{{ crop }}</div>
+                                </div>
+
+                                <div class="info-card {% if 'healthy' in prediction.lower() %}success{% else %}error{% endif %}">
+                                    <div class="info-label">
+                                        <i class="fas fa-heart-pulse"></i>
+                                        Health Status
+                                    </div>
+                                    <div class="info-value prediction-value {% if 'healthy' in prediction.lower() %}healthy{% else %}diseased{% endif %}">{{ prediction }}</div>
+                                </div>
+
+                                <div class="info-card {% if confidence >= 80 %}success{% elif confidence >= 50 %}warning{% else %}error{% endif %}">
+                                    <div class="info-label">
+                                        <i class="fas fa-chart-line"></i>
+                                        Confidence Level
+                                    </div>
+                                    <div class="info-value confidence-value {% if confidence >= 80 %}high{% elif confidence >= 50 %}medium{% else %}low{% endif %}">{{ '%.2f' % confidence }}%</div>
+                                    <div class="confidence-bar">
+                                        <div class="confidence-fill" data-confidence="{{ '%.2f' % confidence }}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="description-section">
+                            <h3 class="description-title">
+                                <i class="fas fa-info-circle"></i>
+                                Analysis Details
+                            </h3>
+                            <p class="description-text">
+                                {{ description }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="{{ url_for('upload') }}" class="action-btn primary">
+                        <i class="fas fa-camera"></i>
+                        Analyze Another Image
+                    </a>
+                    <a href="{{ url_for('index') }}" class="action-btn secondary">
+                        <i class="fas fa-home"></i>
+                        Back to Home
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 CropDoc. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize animations on page load
+       document.addEventListener('DOMContentLoaded', function() {
+    const confidenceFill = document.querySelector('.confidence-fill');
+    if (confidenceFill) {
+        const confidence = confidenceFill.dataset.confidence;
+        confidenceFill.style.width = `${confidence}%`;
+    }
+
+
+            // Add floating animation to shapes
+            const shapes = document.querySelectorAll('.shape');
+            shapes.forEach((shape, index) => {
+                shape.style.animationDelay = `${index * 5}s`;
+            });
+        });
+
+        // Add hover effects for interactive elements
+        document.querySelectorAll('.info-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateX(5px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateX(0) scale(1)';
+            });
+        });
+
+        // Add click animation to buttons
+        document.querySelectorAll('.action-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+    </script>
+</body>
+</html>

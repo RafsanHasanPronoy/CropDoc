@@ -1,0 +1,35 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CropDoc - Result</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+</head>
+<body>
+    <header class="fade-in">
+        <h1>CropDoc</h1>
+        <p>Advanced Crop Disease Detection Results</p>
+    </header>
+    <main>
+        <section class="result-section fade-in">
+            <h2>Analysis Result</h2>
+            <p><strong>Crop:</strong> {{ crop }}</p>
+            <img src="{{ url_for('static', filename=image_path|replace('static/', '')) }}" alt="Uploaded Image" class="result-image">
+            <p><strong>Prediction:</strong> {{ prediction }}</p>
+            <p><strong>Confidence:</strong> {{ '%.2f' % confidence }}%</p>
+            <p><strong>Description:</strong> {{ description }}</p>
+            <a href="{{ url_for('upload') }}" class="analyze-btn">Analyze Another Image</a>
+            <a href="{{ url_for('index') }}">Back to Home</a>
+        </section>
+    </main>
+    <footer>
+        <p>© 2025 CropDoc. All rights reserved.</p>
+    </footer>
+</body>
+</html>
