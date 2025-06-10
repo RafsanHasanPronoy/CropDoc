@@ -1,4 +1,4 @@
-#CropDoc: A Vision Transformer Enhanced Web Interface for Scalable Crop Disease Detection
+"CropDoc: A Vision Transformer Enhanced Web Interface for Scalable Crop Disease Detection"
 
 Overview 
 
@@ -12,19 +12,26 @@ The application is built using Flask for the backend, SQLite for data management
 for model inference. It supports scalable deployment and is designed to assist farmers in making 
 data-driven decisions to improve crop health and yield. 
 
+
 Objectives 
 
 
 o Accurate Disease Detection: Utilize Convolutional Vision Transformer model trained on 
 approximately 91000 of crop images to identify diseases with high confidence. 
+
 o User-Friendly Interface: Provide an intuitive web interface for farmers to upload images 
 and receive instant results. 
+
 o Multi-Crop Support: Support eight major crops with a comprehensive disease database. 
+
 o Scalable Architecture: Enable easy integration of additional crops and disease models. 
+
 o Real-Time Analysis: Deliver results within seconds, including treatment 
 recommendations. 
 
+
 System Architecture 
+
 CropDoc is structured as a Flask-based web application with the following components: 
 
 1. Frontend (HTML/CSS/JavaScript) : 
@@ -60,30 +67,50 @@ model per crop (e.g., `tomato_disease_cvt_model.h5`).
 Models are trained on crop-specific datasets and map to predefined disease classes (e.g., 
 Tomato_Bacterial_spot, Tomato_healthy).
 
+
 Features 
+
  AI-Powered Detection: Uses advanced Vision Transformer models for accurate disease 
 identification. 
+
  Instant Results: Provides analysis results within seconds, including disease details and 
 treatment suggestions. 
+
  Multi-Crop Support: Supports eight crops with a comprehensive disease database. 
+
  Responsive Design: Mobile-friendly interface built with Tailwind CSS. 
+
  Scalable Models: Modular model structure allows easy addition of new crops and diseases. 
+
  Database-Driven Descriptions: Retrieves detailed disease information from a SQLite 
 database. 
 
+
 Supported Crops and Diseases 
+
 CropDoc supports the following crops and their associated diseases: 
+
 Tomato: - Bacterial Spot, Late Blight, Target Spot, Healthy 
+
 Cauliflower: - Bacterial Spot Rot, Black Rot, Downy Mildew, Disease-Free 
+
 Bell Pepper: - Bacterial Spot, Healthy 
+
 Corn: - Common Rust, Gray Leaf Spot, Leaf Blight, Healthy 
+
 Wheat: - Brown Rust, Yellow Rust, Healthy 
+
 Rice: - Rice Blast, Tungro, Healthy 
+
 Jute: - Cercospora Leaf Spot, Golden Mosaic, Healthy 
+
 Potato: - Early Blight, Late Blight, Healthy 
 
-Technical Requirements 
+
+Technical Requirements :
+
 Python: 3.8 or higher 
+
 
 Dependency: 
   - Flask: Web framework for routing and rendering templates 
@@ -99,6 +126,7 @@ Storage:
   - Directory for model files (`model/`) 
   - Directory for uploaded images (`static/uploads/`) 
   - SQLite database (`database/cropdoc.db`) 
+
  
  Setup Instructions 
  
@@ -141,6 +169,7 @@ regularly.
  - **Image Quality**: Analysis accuracy depends on image clarity and lighting conditions. - **File Size Limit**: Supports images up to 10MB, which may restrict high-resolution uploads.
 
 Conclusion 
+
 CropDoc represents a significant advancement in precision agriculture, combining Vision 
 Transformer technology with a scalable web interface to deliver actionable crop health insights. 
 Its modular design and robust feature set make it a valuable tool for farmers and agricultural 
