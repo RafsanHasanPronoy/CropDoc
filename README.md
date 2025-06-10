@@ -1,6 +1,7 @@
 #CropDoc: A Vision Transformer Enhanced Web Interface for Scalable Crop Disease Detection
 
 Overview 
+
 CropDoc is a web-based application designed to empower farmers and agricultural professionals 
 with AI-driven crop disease detection. Leveraging Vision Transformer (ViT) models, CropDoc 
 provides accurate and real-time identification of diseases affecting eight major crops: tomato, 
@@ -12,6 +13,8 @@ for model inference. It supports scalable deployment and is designed to assist f
 data-driven decisions to improve crop health and yield. 
 
 Objectives 
+
+
 o Accurate Disease Detection: Utilize Convolutional Vision Transformer model trained on 
 approximately 91000 of crop images to identify diseases with high confidence. 
 o User-Friendly Interface: Provide an intuitive web interface for farmers to upload images 
