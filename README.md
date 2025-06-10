@@ -1,4 +1,4 @@
-#CropDoc: A Vision Transformer Enhanced Web Interface for Scalable Crop Disease Detection#
+#CropDoc: A Vision Transformer Enhanced Web Interface for Scalable Crop Disease Detection
 
 Overview 
 CropDoc is a web-based application designed to empower farmers and agricultural professionals 
